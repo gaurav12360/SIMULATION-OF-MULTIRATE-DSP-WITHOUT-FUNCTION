@@ -1,57 +1,61 @@
-# EXP 6 : SPEECH RECOGNITION USING SCILAB
+# SIMULATION-OF-MULTIRATE-DSP-WITHOUT-FUNCTION  USING SCILAB
 
 ## AIM: 
-
 To perform and verify multirate DSP without function using SCILAB.
 
 ## APPARATUS REQUIRED: 
 PC installed with SCILAB. 
 
-## PROGRAM : 
-
-//  SPEECH RECOGNITION USING SCILAB
+## PROGRAM :
 ```
+clear;
 clc;
-close;
+close();
+
 n = 0:%pi/50:2*%pi;
-x = sin(%pi*n); 
+x = sin(n); // Original signal
 
-M=input('Enter the downsampling factor');
-L=input('Enter the upsampling factor');
+// Input upsampling and downsampling factors
+M = input("Enter the downsampling factor M: ");
+L = input("Enter the upsampling factor L: ");
 
-downsampling_x = x(1:M:length(x));
-disp(x,'Input signal x(n)=');
-disp(downsampling_x,'Downsampled Signal');
-figure(1);
-subplot(2,1,1)
-plot2d3(1:length(x),x);
-xtitle('original singal')
-subplot(2,1,2)
-plot2d3(1:length(downsampling_x),downsampling_x);
-xtitle('Downsampled Signal by a factor of M');
+// --- Downsampling ---
+downsampling_x = x(1:M:$);
+disp(x, "Input signal x(n) = ");
+disp(downsampling_x, "Downsampled signal x(Mn) = ");
 
-
-upsampling_x=[];
-for i=1:length(x)
-upsampling_x(1,L*i)=x(i);
-end
-disp(x,'Input signal x(n)=');
-disp(upsampling_x,'Upsampled Signal');
-figure(2);
+// Plot original and downsampled signals
+scf(1);
 subplot(2,1,1);
-plot2d3(x);
-title('original signal');
+plot2d3(1:length(x), x);
+xtitle("Original Signal");
+
 subplot(2,1,2);
-plot2d3(upsampling_x);
-title('Upsampled Signal by a factor of L');
+plot2d3(1:length(downsampling_x), downsampling_x);
+xtitle("Downsampled Signal by a factor of M");
+
+// --- Upsampling ---
+upsampling_x = zeros(1, L*length(x));
+for i = 1:length(x)
+    upsampling_x((i-1)*L + 1) = x(i);
+end
+
+disp(upsampling_x, "Upsampled signal x(n/L) = ");
+
+// Plot original and upsampled signals
+scf(2);
+subplot(2,1,1);
+plot2d3(1:length(x), x);
+xtitle("Original Signal");
+
+subplot(2,1,2);
+plot2d3(1:length(upsampling_x), upsampling_x);
+xtitle("Upsampled Signal by a factor of L");
+
 ```
 
 ## OUTPUT: 
-<img width="1918" height="1193" alt="image" src="https://github.com/user-attachments/assets/6dcfcb76-9cec-40e6-9df7-ca26b6830415" />
-<img width="1918" height="1197" alt="image" src="https://github.com/user-attachments/assets/b3d9d865-4d51-4948-8579-fa335c88ea2e" />
-
-
-
+<img width="1919" height="969" alt="image" src="https://github.com/user-attachments/assets/b76d17ef-ec5b-4f50-bcbe-8515a247d3e9" />
 
 ## RESULT: 
 Thus the decimation process by a factor M and interpolation process by a factor L using 
